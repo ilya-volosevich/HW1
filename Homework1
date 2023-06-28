@@ -1,0 +1,174 @@
+#1
+root@Linux:~# timedatectl
+               Local time: Ср 2023-06-28 23:27:54 MSK
+           Universal time: Ср 2023-06-28 20:27:54 UTC
+                 RTC time: Ср 2023-06-28 20:27:54
+                Time zone: Europe/Moscow (MSK, +0300)
+System clock synchronized: no
+              NTP service: inactive
+          RTC in local TZ: no
+root@Linux:~# sudo date 06282328
+Ср 28 июн 2023 23:28:00 MSK
+root@Linux:~# sudo locale-gen ru_RU.UTF-8
+Generating locales (this might take a while)...
+  ru_RU.UTF-8... done
+Generation complete.
+root@Linux:~# sudo update-locale LANG=en_US.UTF-8 LC_TIME="ru_RU.UTF-8"
+root@Linux:~# sudo timedatectl set-timezone Europe/Minsk
+root@Linux:~# sudo vim /etc/motd
+Прописываю там "Hello my creator! Good luck!"
+
+При входе под моим юзером ilyaa теперь отображается 
+Hello my creator! Good luck!
+
+#2
+
+root@Linux:~# uname -a
+Linux Linux 5.19.0-46-generic #47~22.04.1-Ubuntu SMP PREEMPT_DYNAMIC Wed Jun 21 15:35:31 UTC 2 x86_64 x86_64 x86_64 GNU/Linux
+Версия ядра - 5.19.0-46
+
+#3
+
+lsmod > coremodules.txt
+less coremodules
+Module                  Size  Used by
+tls                   118784  0
+isofs                  53248  1
+vboxsf                 81920  0
+binfmt_misc            24576  1
+snd_intel8x0           49152  2
+snd_ac97_codec        176128  1 snd_intel8x0
+ac97_bus               16384  1 snd_ac97_codec
+snd_pcm               159744  2 snd_intel8x0,snd_ac97_codec
+intel_rapl_msr         20480  0
+intel_rapl_common      40960  1 intel_rapl_msr
+crct10dif_pclmul       16384  1
+ghash_clmulni_intel    16384  0
+snd_seq_midi           20480  0
+snd_seq_midi_event     16384  1 snd_seq_midi
+aesni_intel           376832  0
+nls_iso8859_1          16384  1
+snd_rawmidi            45056  1 snd_seq_midi
+crypto_simd            16384  1 aesni_intel
+cryptd                 24576  2 crypto_simd,ghash_clmulni_intel
+joydev                 32768  0
+rapl                   20480  0
+snd_seq                77824  2 snd_seq_midi,snd_seq_midi_event
+
+#4
+root@Linux:~# lscpu
+root@Linux:~# sudo lshw -class memory
+
+#5
+root@Linux:~# df -h
+Filesystem      Size  Used Avail Use% Mounted on
+tmpfs           597M  1,5M  595M   1% /run
+/dev/sda3        15G   11G  2,8G  80% /
+tmpfs           3,0G     0  3,0G   0% /dev/shm
+tmpfs           5,0M  4,0K  5,0M   1% /run/lock
+/dev/sda2       512M  6,1M  506M   2% /boot/efi
+tmpfs           597M  2,4M  594M   1% /run/user/1001
+/dev/sr0         52M   52M     0 100% /media/ilyaa/VBox_GAs_7.0.8
+
+
+#6
+
+root@Linux:~# /sbin/ifconfig 
+
+enp0s3: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet 10.0.2.15  netmask 255.255.255.0  broadcast 10.0.2.255
+        inet6 fe80::7eaa:4666:e0f4:1622  prefixlen 64  scopeid 0x20<link>
+        ether 08:00:27:f5:88:f6  txqueuelen 1000  (Ethernet)
+        RX packets 183  bytes 217805 (217.8 KB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 167  bytes 16300 (16.3 KB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+enp0s8: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet 10.0.3.15  netmask 255.255.255.0  broadcast 10.0.3.255
+        inet6 fe80::7740:f1bd:34ef:5756  prefixlen 64  scopeid 0x20<link>
+        ether 08:00:27:8d:42:2b  txqueuelen 1000  (Ethernet)
+        RX packets 37  bytes 5411 (5.4 KB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 130  bytes 13115 (13.1 KB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+
+#7
+
+root@Linux:~# free
+
+               total        used        free      shared  buff/cache   available
+Mem:         6106120      867948     4274496       38632      963676     4966364
+Swap:        1648636           0     1648636
+
+
+
+#8
+
+root@Linux:~# sudo adduser new_admin_user --disabled-password
+Adding user `new_admin_user' ...
+Adding new group `new_admin_user' (1002) ...
+Adding new user `new_admin_user' (1002) with group `new_admin_user' ...
+Creating home directory `/home/new_admin_user' ...
+Copying files from `/etc/skel' ...
+Changing the user information for new_admin_user
+Enter the new value, or press ENTER for the default
+	Full Name []: iv
+	Room Number []: 
+	Work Phone []: 
+	Home Phone []: 
+	Other []: 
+Is the information correct? [Y/n] y
+root@Linux:~# sudo su - iv
+su: user iv does not exist or the user entry does not contain all the required fields
+root@Linux:~# sudo su - new_admin_user
+new_admin_user@Linux:~$ mkdir .ssh
+new_admin_user@Linux:~$ ls
+new_admin_user@Linux:~$ chmod 700 .ssh
+new_admin_user@Linux:~$ touch .ssh/authorized_keys
+new_admin_user@Linux:~$ chmod 600 .ssh/authorized_keys 
+new_admin_user@Linux:~$ cd .ssh/
+new_admin_user@Linux:~/.ssh$ vim authorized_keys
+
+Вставляю туда нужный ключ, проверяю, пользуюсь
+
+#9
+
+ilyaa@Linux:~$ cat /proc/filesystems 
+nodev	sysfs
+nodev	tmpfs
+nodev	bdev
+nodev	proc
+nodev	cgroup
+nodev	cgroup2
+nodev	cpuset
+nodev	devtmpfs
+nodev	configfs
+nodev	debugfs
+nodev	tracefs
+nodev	securityfs
+nodev	sockfs
+nodev	bpf
+nodev	pipefs
+nodev	ramfs
+nodev	hugetlbfs
+nodev	devpts
+	ext3
+	ext2
+	ext4
+	squashfs
+	vfat
+nodev	ecryptfs
+	fuseblk
+nodev	fuse
+nodev	fusectl
+nodev	mqueue
+nodev	pstore
+nodev	autofs
+nodev	binfmt_misc
+nodev	vboxsf
+	iso9660
+
+
+#10
