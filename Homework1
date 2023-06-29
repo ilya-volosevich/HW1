@@ -120,8 +120,6 @@ Enter the new value, or press ENTER for the default
 	Home Phone []: 
 	Other []: 
 Is the information correct? [Y/n] y
-root@Linux:~# sudo su - iv
-su: user iv does not exist or the user entry does not contain all the required fields
 root@Linux:~# sudo su - new_admin_user
 new_admin_user@Linux:~$ mkdir .ssh
 new_admin_user@Linux:~$ ls
