@@ -21,11 +21,26 @@ root@Linux:~# sudo vim /etc/motd
 При входе под моим юзером ilyaa теперь отображается 
 Hello my creator! Good luck!
 
+[root@localhost ilya]# timedatectl set-timezone Europe/Minsk
+[root@localhost ilya]# timedatectl
+               Local time: Wed 2023-07-05 23:22:14 +03
+           Universal time: Wed 2023-07-05 20:22:14 UTC
+                 RTC time: Wed 2023-07-05 20:22:14
+                Time zone: Europe/Minsk (+03, +0300)
+System clock synchronized: yes
+              NTP service: active
+          RTC in local TZ: no
+
+
+
 #2
 
 root@Linux:~# uname -a
 Linux Linux 5.19.0-46-generic #47~22.04.1-Ubuntu SMP PREEMPT_DYNAMIC Wed Jun 21 15:35:31 UTC 2 x86_64 x86_64 x86_64 GNU/Linux
 Версия ядра - 5.19.0-46
+
+[root@localhost ilya]# uname -a
+Linux localhost.localdomain 5.14.0-333.el9.x86_64 #1 SMP PREEMPT_DYNAMIC Wed Jun 28 09:47:27 UTC 2023 x86_64 x86_64 x86_6
 
 #3
 
@@ -55,9 +70,154 @@ joydev                 32768  0
 rapl                   20480  0
 snd_seq                77824  2 snd_seq_midi,snd_seq_midi_event
 
+
+[root@localhost ilya]# lsmod > coremodules.txt
+[root@localhost ilya]# less coremodules.txt 
+[root@localhost ilya]# cat coremodules.txt 
+Module                  Size  Used by
+uinput                 20480  0
+nls_utf8               16384  1
+isofs                  61440  1
+snd_seq_dummy          16384  0
+snd_hrtimer            16384  1
+nft_fib_inet           16384  1
+nft_fib_ipv4           16384  1 nft_fib_inet
+nft_fib_ipv6           16384  1 nft_fib_inet
+nft_fib                16384  3 nft_fib_ipv6,nft_fib_ipv4,nft_fib_inet
+nft_reject_inet        16384  6
+nf_reject_ipv4         16384  1 nft_reject_inet
+nf_reject_ipv6         20480  1 nft_reject_inet
+nft_reject             16384  1 nft_reject_inet
+nft_ct                 24576  10
+nft_chain_nat          16384  3
+nf_nat                 57344  1 nft_chain_nat
+nf_conntrack          188416  2 nf_nat,nft_ct
+nf_defrag_ipv6         24576  1 nf_conntrack
+nf_defrag_ipv4         16384  1 nf_conntrack
+ip_set                 61440  0
+rfkill                 36864  3
+nf_tables             278528  192 nft_ct,nft_reject_inet,nft_fib_ipv6,nft_fib_ipv4,nft_chain_nat,nft_reject,nft_fib,nft_fib_inet
+nfnetlink              20480  3 nf_tables,ip_set
+qrtr                   53248  4
+snd_intel8x0           49152  2
+snd_ac97_codec        176128  1 snd_intel8x0
+ac97_bus               16384  1 snd_ac97_codec
+snd_seq                94208  7 snd_seq_dummy
+intel_rapl_msr         20480  0
+intel_rapl_common      32768  1 intel_rapl_msr
+snd_seq_device         16384  1 snd_seq
+snd_pcm               151552  2 snd_intel8x0,snd_ac97_codec
+rapl                   24576  0
+snd_timer              49152  3 snd_seq,snd_hrtimer,snd_pcm
+snd                   126976  12 snd_seq,snd_seq_device,snd_intel8x0,snd_timer,snd_ac97_codec,snd_pcm
+pcspkr                 16384  0
+i2c_piix4              28672  0
+soundcore              16384  1 snd
+xfs                  2138112  2
+libcrc32c              16384  4 nf_conntrack,nf_nat,nf_tables,xfs
+sr_mod                 28672  1
+cdrom                  81920  2 isofs,sr_mod
+sd_mod                 77824  3
+t10_pi                 16384  1 sd_mod
+sg                     49152  0
+ata_generic            16384  0
+vmwgfx                380928  1
+drm_ttm_helper         16384  1 vmwgfx
+ttm                    90112  2 vmwgfx,drm_ttm_helper
+ahci                   49152  2
+drm_kms_helper        212992  3 vmwgfx
+libahci                53248  1 ahci
+ata_piix               45056  1
+syscopyarea            16384  1 drm_kms_helper
+sysfillrect            16384  1 drm_kms_helper
+sysimgblt              16384  1 drm_kms_helper
+drm                   606208  6 vmwgfx,drm_kms_helper,drm_ttm_helper,ttm
+libata                425984  4 ata_piix,libahci,ahci,ata_generic
+crct10dif_pclmul       16384  1
+crc32_pclmul           16384  0
+crc32c_intel           24576  1
+ghash_clmulni_intel    16384  0
+e1000                 176128  0
+video                  65536  0
+serio_raw              20480  0
+dm_mirror              28672  0
+dm_region_hash         24576  1 dm_mirror
+dm_log                 24576  2 dm_region_hash,dm_mirror
+dm_mod                204800  9 dm_log,dm_mirror
+fuse                  176128  5
+
+
+
+
 #4
 root@Linux:~# lscpu
 root@Linux:~# sudo lshw -class memory
+
+[root@localhost ilya]# lscpu
+Architecture:            x86_64
+  CPU op-mode(s):        32-bit, 64-bit
+  Address sizes:         39 bits physical, 48 bits virtual
+  Byte Order:            Little Endian
+CPU(s):                  4
+  On-line CPU(s) list:   0-3
+Vendor ID:               GenuineIntel
+  Model name:            Intel(R) Core(TM) i7-4790 CPU @ 3.60GHz
+    CPU family:          6
+    Model:               60
+    Thread(s) per core:  1
+    Core(s) per socket:  4
+    Socket(s):           1
+    Stepping:            3
+    BogoMIPS:            7199.98
+    Flags:               fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov
+                          pat pse36 clflush mmx fxsr sse sse2 ht syscall nx rdtscp lm 
+                         constant_tsc rep_good nopl xtopology nonstop_tsc cpuid tsc_kn
+                         own_freq pni pclmulqdq ssse3 cx16 pcid sse4_1 sse4_2 x2apic m
+                         ovbe popcnt aes xsave avx rdrand hypervisor lahf_lm abm invpc
+                         id_single pti fsgsbase bmi1 avx2 bmi2 invpcid md_clear flush_
+                         l1d
+Virtualization features: 
+  Hypervisor vendor:     KVM
+  Virtualization type:   full
+Caches (sum of all):     
+  L1d:                   128 KiB (4 instances)
+  L1i:                   128 KiB (4 instances)
+  L2:                    1 MiB (4 instances)
+  L3:                    32 MiB (4 instances)
+NUMA:                    
+  NUMA node(s):          1
+  NUMA node0 CPU(s):     0-3
+Vulnerabilities:         
+  Itlb multihit:         KVM: Mitigation: VMX unsupported
+  L1tf:                  Mitigation; PTE Inversion
+  Mds:                   Mitigation; Clear CPU buffers; SMT Host state unknown
+  Meltdown:              Mitigation; PTI
+  Mmio stale data:       Unknown: No mitigations
+  Retbleed:              Not affected
+  Spec store bypass:     Vulnerable
+  Spectre v1:            Mitigation; usercopy/swapgs barriers and __user pointer sanit
+                         ization
+  Spectre v2:            Mitigation; Retpolines, STIBP disabled, RSB filling, PBRSB-eI
+                         BRS Not affected
+  Srbds:                 Unknown: Dependent on hypervisor status
+  Tsx async abort:       Not affected
+
+[root@localhost ilya]# sudo lshw -class memory
+  *-firmware                
+       description: BIOS
+       vendor: innotek GmbH
+       physical id: 0
+       version: VirtualBox
+       date: 12/01/2006
+       size: 128KiB
+       capacity: 128KiB
+       capabilities: isa pci cdboot bootselect int9keyboard int10video acpi
+  *-memory
+       description: System memory
+       physical id: 1
+       size: 4GiB
+
+
 
 #5
 root@Linux:~# df -h
@@ -69,6 +229,18 @@ tmpfs           5,0M  4,0K  5,0M   1% /run/lock
 /dev/sda2       512M  6,1M  506M   2% /boot/efi
 tmpfs           597M  2,4M  594M   1% /run/user/1001
 /dev/sr0         52M   52M     0 100% /media/ilyaa/VBox_GAs_7.0.8
+
+
+[root@localhost ilya]# df -h
+Filesystem           Size  Used Avail Use% Mounted on
+devtmpfs             4.0M     0  4.0M   0% /dev
+tmpfs                1.8G   13M  1.8G   1% /dev/shm
+tmpfs                733M  9.2M  724M   2% /run
+/dev/mapper/cs-root   13G  4.5G  8.0G  37% /
+/dev/sda1            960M  401M  560M  42% /boot
+tmpfs                367M  112K  367M   1% /run/user/1000
+/dev/sr0              52M   52M     0 100% /run/media/ilya/VBox_GAs_7.0.8
+
 
 
 #6
