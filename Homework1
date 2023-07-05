@@ -30,7 +30,8 @@ Hello my creator! Good luck!
 System clock synchronized: yes
               NTP service: active
           RTC in local TZ: no
-
+[ilya@localhost ~]$ cat /etc/motd
+Privet, ya CentOS, dobro pojalovat!
 
 
 #2
@@ -263,6 +264,32 @@ enp0s8: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
         RX packets 37  bytes 5411 (5.4 KB)
         RX errors 0  dropped 0  overruns 0  frame 0
         TX packets 130  bytes 13115 (13.1 KB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+[ilya@localhost ~]$ /sbin/ifconfig 
+enp0s3: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet 10.0.2.15  netmask 255.255.255.0  broadcast 10.0.2.255
+        inet6 fe80::a00:27ff:fe2f:8eb5  prefixlen 64  scopeid 0x20<link>
+        ether 08:00:27:2f:8e:b5  txqueuelen 1000  (Ethernet)
+        RX packets 2916  bytes 2633621 (2.5 MiB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 1535  bytes 697110 (680.7 KiB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+enp0s8: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        ether 08:00:27:5b:a1:73  txqueuelen 1000  (Ethernet)
+        RX packets 0  bytes 0 (0.0 B)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 0  bytes 0 (0.0 B)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+lo: flags=73<UP,LOOPBACK,RUNNING>  mtu 65536
+        inet 127.0.0.1  netmask 255.0.0.0
+        inet6 ::1  prefixlen 128  scopeid 0x10<host>
+        loop  txqueuelen 1000  (Local Loopback)
+        RX packets 19  bytes 2179 (2.1 KiB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 19  bytes 2179 (2.1 KiB)
         TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
 
 
