@@ -246,24 +246,32 @@ tmpfs                367M  112K  367M   1% /run/user/1000
 
 #6
 
-root@Linux:~# /sbin/ifconfig 
-
+ilyaa@Linux:~$ /sbin/ifconfig 
 enp0s3: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
         inet 10.0.2.15  netmask 255.255.255.0  broadcast 10.0.2.255
         inet6 fe80::7eaa:4666:e0f4:1622  prefixlen 64  scopeid 0x20<link>
         ether 08:00:27:f5:88:f6  txqueuelen 1000  (Ethernet)
-        RX packets 183  bytes 217805 (217.8 KB)
+        RX packets 216  bytes 271908 (271.9 KB)
         RX errors 0  dropped 0  overruns 0  frame 0
-        TX packets 167  bytes 16300 (16.3 KB)
+        TX packets 158  bytes 15775 (15.7 KB)
         TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
 
 enp0s8: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
         inet 10.0.3.15  netmask 255.255.255.0  broadcast 10.0.3.255
         inet6 fe80::7740:f1bd:34ef:5756  prefixlen 64  scopeid 0x20<link>
         ether 08:00:27:8d:42:2b  txqueuelen 1000  (Ethernet)
-        RX packets 37  bytes 5411 (5.4 KB)
+        RX packets 12  bytes 2147 (2.1 KB)
         RX errors 0  dropped 0  overruns 0  frame 0
-        TX packets 130  bytes 13115 (13.1 KB)
+        TX packets 75  bytes 8432 (8.4 KB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+lo: flags=73<UP,LOOPBACK,RUNNING>  mtu 65536
+        inet 127.0.0.1  netmask 255.0.0.0
+        inet6 ::1  prefixlen 128  scopeid 0x10<host>
+        loop  txqueuelen 1000  (Local Loopback)
+        RX packets 48  bytes 4900 (4.9 KB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 48  bytes 4900 (4.9 KB)
         TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
 
 [ilya@localhost ~]$ /sbin/ifconfig 
@@ -305,30 +313,65 @@ Swap:        1648636           0     1648636
 
 #8
 
-root@Linux:~# sudo adduser new_admin_user --disabled-password
-Adding user `new_admin_user' ...
-Adding new group `new_admin_user' (1002) ...
-Adding new user `new_admin_user' (1002) with group `new_admin_user' ...
-Creating home directory `/home/new_admin_user' ...
+root@Linux:~# sudo adduser new_admin_userwin --disabled-password
+Adding user `new_admin_userwin' ...
+Adding new group `new_admin_userwin' (1002) ...
+Adding new user `new_admin_userwin' (1002) with group `new_admin_user' ...
+Creating home directory `/home/new_admin_userwin' ...
 Copying files from `/etc/skel' ...
-Changing the user information for new_admin_user
+Changing the user information for new_admin_userwin
 Enter the new value, or press ENTER for the default
-	Full Name []: iv
+	Full Name []: 
 	Room Number []: 
 	Work Phone []: 
 	Home Phone []: 
 	Other []: 
 Is the information correct? [Y/n] y
-root@Linux:~# sudo su - new_admin_user
-new_admin_user@Linux:~$ mkdir .ssh
-new_admin_user@Linux:~$ ls
-new_admin_user@Linux:~$ chmod 700 .ssh
-new_admin_user@Linux:~$ touch .ssh/authorized_keys
-new_admin_user@Linux:~$ chmod 600 .ssh/authorized_keys 
-new_admin_user@Linux:~$ cd .ssh/
-new_admin_user@Linux:~/.ssh$ vim authorized_keys
+root@Linux:~# sudo su - new_admin_userwin
+new_admin_userwin@Linux:~$ mkdir .ssh
+new_admin_userwin@Linux:~$ ls
+new_admin_userwin@Linux:~$ chmod 700 .ssh
+new_admin_userwin@Linux:~$ touch .ssh/authorized_keys
+new_admin_userwin@Linux:~$ chmod 600 .ssh/authorized_keys 
+new_admin_userwin@Linux:~$ cd .ssh/
+new_admin_userwin@Linux:~/.ssh$ vim authorized_keys
 
 Вставляю туда нужный ключ, проверяю, пользуюсь
+
+Подключился по ssh по адресу 192.168.56.101
+
+C:\Users\bamboo>ssh new_admin_userwin@192.168.56.101 22
+The authenticity of host '192.168.56.101 (192.168.56.101)' can't be established.
+ECDSA key fingerprint is SHA256:c5jbEudxQOfCNkM0TA6mm6POn8vplmS3HONrI2HsvVc.
+Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
+Warning: Permanently added '192.168.56.101' (ECDSA) to the list of known hosts.
+bash: line 1: 22: command not found
+
+C:\Users\bamboo>ssh new_admin_userwin@192.168.56.101
+Welcome to Ubuntu 22.04.2 LTS (GNU/Linux 5.19.0-46-generic x86_64)
+
+ * Documentation:  https://help.ubuntu.com
+ * Management:     https://landscape.canonical.com
+ * Support:        https://ubuntu.com/advantage
+
+ * Introducing Expanded Security Maintenance for Applications.
+   Receive updates to over 25,000 software packages with your
+   Ubuntu Pro subscription. Free for personal use.
+
+     https://ubuntu.com/pro
+
+Expanded Security Maintenance for Applications is not enabled.
+
+228 updates can be applied immediately.
+137 of these updates are standard security updates.
+To see these additional updates run: apt list --upgradable
+
+Enable ESM Apps to receive additional future security updates.
+See https://ubuntu.com/esm or run: sudo pro status
+
+Hello my creator! Good luck!
+new_admin_userwin@Linux:~$
+
 
 #9
 
